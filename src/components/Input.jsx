@@ -8,6 +8,7 @@ function Input(props) {
             localStorage.setItem(text, text);
             props.setStorageLength(props.storageLength + 1);
         }
+        setText("");
     }
 
     function handleAllDelete() {
