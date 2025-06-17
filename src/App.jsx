@@ -24,7 +24,7 @@ function App() {
   
   return (
     <>
-      <h1 style={{textAlign:'center'}}>List App</h1>
+      <h1 style={{textAlign:'center'}}>MAKE LIST</h1>
       <Input storageLength={storageLength} setStorageLength={setStorageLength} text={text} setText={setText} isUpdate={isUpdate} setIsUpdate={setIsUpdate} targetID={targetID} setTargetID={setTargetID}/>
       <AllLists storageLength={storageLength} setStorageLength={setStorageLength} text={text} setText={setText} isUpdate={isUpdate} setIsUpdate={setIsUpdate} targetID={targetID} setTargetID={setTargetID}/>
     </>
