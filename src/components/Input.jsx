@@ -5,17 +5,25 @@ function Input(props) {
     function addToLocal() {
         if (props.text.trim() != "") {
             const data = JSON.parse(localStorage.getItem("allLists"));
-            data.push({ id: Date.now(), content: props.text.trim() });
+            data.push({ id: Date.now(), content: props.text.trim(), status: "pending" });
             localStorage.setItem("allLists", JSON.stringify(data));
-            props.setStorageLength(props.storageLength + 1);
+            props.setPendingStorageLength(props.pendingStorageLength + 1);
         }
         props.setText("");
     }
 
-    function handleAllDelete() {
-        localStorage.setItem("allLists", JSON.stringify([]));
-        props.setStorageLength(0);
+    function handleAllFinished() {
+        let allLists=localStorage.getItem("allLists");
+        allLists=JSON.parse(allLists);
+        let len=allLists.length;
+        for(let i=0;i<len;i++){
+            if(allLists[i].status=='pending'){
+                allLists[i].status='finished';
+            }
+        }
+        localStorage.setItem("allLists",JSON.stringify(allLists));
         props.setIsUpdate(false);
+        props.setPendingStorageLength(0);
     }
 
     function updateToLocal() {
@@ -24,7 +32,7 @@ function Input(props) {
         if (props.text.trim() != "") {
             // binary search
             const data = JSON.parse(localStorage.getItem("allLists"));
-            const len = props.storageLength;
+            const len = props.pendingStorageLength;
             for (let i = 0; i < len; i++) {
                 if (props.targetID == data[i].id) {
                     data[i].content = props.text;
@@ -50,7 +58,7 @@ function Input(props) {
                             :
                             <button onClick={addToLocal} style={{ width: '120px', backgroundColor: 'blue', color: 'white', margin: '10px' }}>Add</button>
                     }
-                    <button onClick={handleAllDelete} style={{ width: '120px', backgroundColor: 'red', color: 'white', margin: '10px' }}>Clear All</button>
+                    <button onClick={handleAllFinished} style={{ width: '120px', backgroundColor: 'green', color: 'white', margin: '10px' }}>Finish All</button>
                 </div>
             </div>
         </>
